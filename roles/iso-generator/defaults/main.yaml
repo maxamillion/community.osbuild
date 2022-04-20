@@ -1,6 +1,3 @@
-SPDX-License-Identifier:  Apache-2.0
-iso_fetch_path: http://httpd:8080/images
-
 iso_source_name: rhel-8.5-x86_64-boot.iso
 iso_source_path: /tmp
 
@@ -10,8 +7,6 @@ iso_mount_base_path: /tmp/boot-iso
 # -e "edge_iso_name=<name>" to ansible-playbook command.
 edge_iso_name: rfe-8.5-x86_64-auto-kickstart.iso
 edge_iso_path: /tmp
-edge_iso_remote_path: /var/www/html/images
-
 scratch_base_path: /tmp/boot-iso-scratch
 
 # Default hello-world kickstart. Can override by passing
@@ -20,3 +15,5 @@ kickstart_url: http://httpd:8080/kickstarts/hello-world/kickstart.ks
 
 # Override with -e iso_storage_url=$(results.iso-storage-url.path)
 iso_storage_url: /tmp/iso-storage-url
+ostreesetup_remote: http://httpd:8080/kickstarts/hello-world/kickstart.ks
+kickstart_password: pleasedontusedefaultpasswords

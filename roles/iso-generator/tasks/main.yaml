@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Generate Random String
   ansible.builtin.shell:
     cmd: cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1
@@ -27,6 +27,7 @@ SPDX-License-Identifier:  Apache-2.0
   loop:
     - "{{ scratch_path }}"
     - "{{ iso_mount_path }}"
+    - "{{ edge_iso_path }}"
 
 - name: Mount ISO
   ansible.posix.mount:
@@ -45,9 +46,9 @@ SPDX-License-Identifier:  Apache-2.0
   delegate_to: "{{ inventory_hostname }}"
 
 - name: Copy Kickstart File to Scratch Directory
-  ansible.builtin.get_url:
+  ansible.builtin.template:
     dest: "{{ scratch_path }}/kickstart.ks"
-    url: "{{ kickstart_url }}"
+    src: "templates/kickstart.ks"
     validate_certs: no
 
 - name: Copy Updated Grub Configuration
@@ -99,17 +100,15 @@ SPDX-License-Identifier:  Apache-2.0
 
 - name: Ensure Remote Directory in httpd Pod Exists
   ansible.builtin.file:
-    path: "{{ edge_iso_remote_path }}"
+    path: "{{ edge_iso_path }}"
     state: directory
-  become: no
-  delegate_to: "{{ groups.httpd_pod_group[0] }}"
+  become: yes
 
 - name: Copy Edge ISO to httpd Pod
   ansible.builtin.copy:
-    dest: "{{ edge_iso_remote_path }}/{{ edge_iso_name }}"
+    dest: "{{ edge_iso_path }}/{{ edge_iso_name }}"
     src: "/tmp/{{ edge_iso_name }}"
-  become: no
-  delegate_to: "{{ groups.httpd_pod_group[0] }}"
+  become: yes
 
 - name: Remove ISO Mount
   ansible.posix.mount:
@@ -124,22 +123,3 @@ SPDX-License-Identifier:  Apache-2.0
     - "{{ scratch_path }}"
     - "{{ iso_mount_path }}"
     - "/tmp/{{ edge_iso_name }}"
-
-- name: Get httpd Route
-  community.kubernetes.k8s_info:
-    api_key: "{{ lookup('file', '/var/run/secrets/kubernetes.io/serviceaccount/token') }}"
-    api_version: route.openshift.io/v1
-    ca_cert: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-    host: https://kubernetes.default.svc
-    kind: Route
-    name: httpd
-    namespace: rfe
-    validate_certs: yes
-  register: httpd_route
-  delegate_to: localhost
-
-- name: Set iso_storage_url Result
-  ansible.builtin.copy:
-    content: "{{ ('https://' if httpd_route.resources[0].spec.tls is defined else 'http://') + httpd_route.resources[0].spec.host }}/images/{{ edge_iso_name }}"
-    dest: "{{ iso_storage_url }}"
-  delegate_to: localhost
