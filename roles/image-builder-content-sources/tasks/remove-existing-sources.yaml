@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Get List of Existing Content Sources
   ansible.builtin.command: >
     composer-cli -j sources list

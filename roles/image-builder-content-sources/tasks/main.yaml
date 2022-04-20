@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Assert Variables are Defined
   ansible.builtin.assert:
     that:

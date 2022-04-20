@@ -7,9 +7,9 @@ autopart --type=plain --fstype=xfs --nohome
 reboot
 text
 network --bootproto=dhcp
-user --name=core --groups=wheel --password=edge
+user --name=core --groups=wheel --password="{{kickstart_password}}"
 services --enabled=ostree-remount
-ostreesetup --nogpg --url=http://10.0.0.29:8000/repo/ --osname=rhel --remote=edge --ref=rhel/8/x86_64/edge
+ostreesetup --nogpg --url={{ostreesetup_remote}} --osname=rhel --remote=edge --ref=rhel/8/x86_64/edge
 
 %post
 # Create ansible playbook to register device to Ansible automation platform

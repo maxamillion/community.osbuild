@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Generate List of RHSM Repositories
   ansible.builtin.set_fact:
     rhsm_repositories_list: "{{ ((rhsm_repositories | b64decode | from_json) | from_json).repositories | list }}"

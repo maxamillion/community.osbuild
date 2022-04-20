@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Assert Extra Variables are Defined
   ansible.builtin.assert:
     fail_msg: >

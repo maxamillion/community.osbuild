@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Generate Access Token
   ansible.builtin.uri:
     body:

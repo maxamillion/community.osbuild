@@ -1,4 +1,3 @@
-SPDX-License-Identifier:  Apache-2.0
 ---
 base_rpm_ostree_dir: /opt/rfe-rpm-ostree
 base_rpm_ostree_blueprints_dir: "{{ base_rpm_ostree_dir }}/blueprints"

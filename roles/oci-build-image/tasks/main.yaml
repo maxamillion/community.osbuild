@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Verify Blueprint Source Directory is Defined
   ansible.builtin.assert:
     fail_msg: Blueprints Source Directory Must be Defined

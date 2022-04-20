@@ -1,4 +1,4 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 - name: Set List of Sources
   ansible.builtin.set_fact:
     sources_list: "{{ additional_content_sources | b64decode | from_json | json_query('sources.[*]') }}"
