@@ -1,7 +1,0 @@
-- name: Stage OCI Content
-  gather_facts: no
-  hosts: localhost
-  tasks:
-    - name: Stage OCI Content
-      include_role:
-        name: oci-stage-content
