@@ -2,11 +2,6 @@
   hosts: builder
   roles:
     - role: openshift-image-builder-imi
-
-- name: Generate In-Memory Inventory of httpd Pod
-  hosts: builder
-  roles:
-    - role: openshift-httpd-pod-imi
     
 - name: Generate RFE ISO w/ Embedded kickstart
   become: yes
