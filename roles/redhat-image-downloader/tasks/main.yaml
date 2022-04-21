@@ -4,7 +4,7 @@
     body:
       client_id: rhsm-api
       grant_type: refresh_token
-      refresh_token: "{{ lookup('file', '/var/secrets/redhat-portal-credentials/offline_token') }}"
+      refresh_token: "{{ refresh_token }}"
     body_format: form-urlencoded
     method: POST
     url: "{{ redhat_sso_url }}"

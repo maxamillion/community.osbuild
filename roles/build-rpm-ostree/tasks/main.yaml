@@ -10,7 +10,6 @@
   become: no
   register: blueprint_exists
   failed_when: not blueprint_exists.stat.exists
-  connection: local
   loop:
     - "{{ blueprint_source_dir }}"
     - "{{ blueprint_source_dir }}/blueprint.toml"
@@ -71,4 +70,3 @@
 - name: Save commit id to file
   local_action: copy content="{{ build_id }}" dest="{{ build_commit_output_file }}"
   become: no
-  connection: local

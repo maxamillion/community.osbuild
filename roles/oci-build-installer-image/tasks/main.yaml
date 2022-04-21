@@ -15,7 +15,6 @@
   ansible.builtin.stat:
     path: "{{ item }}"
   become: no
-  delegate_to: localhost
   failed_when: not blueprint_exists.stat.exists
   loop:
     - "{{ blueprint_source_dir }}"
@@ -80,4 +79,4 @@
     content: "{{ build_commit_id }}"
     dest: "{{ build_commit_id_output_file }}"
   become: no
-  delegate_to: localhost
+

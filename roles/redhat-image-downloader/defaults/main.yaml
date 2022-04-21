@@ -1,9 +1,9 @@
-SPDX-License-Identifier:  Apache-2.0
+---
 initial_download_path: /tmp
 
 redhat_sso_url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
 redhat_api_url: https://api.access.redhat.com/management/v1
-
+refresh_token: download from https://access.redhat.com/management/api
 # image_checksums represents a list of SHA-256 hashes that correspond to specific
 # Red Hat images.  The RHEL 8.5 KVM QCOW2 Image followed by the RHEL 8.5 Boot ISO
 # are defaults in this list.

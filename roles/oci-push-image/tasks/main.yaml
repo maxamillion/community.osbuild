@@ -6,18 +6,15 @@
         - blueprint_source_dir
         - build_commit_id
         - image_tags_output_file
-        - quay_image_path
     that:
       - blueprint_source_dir is defined
       - build_commit_id is defined
       - image_tags_output_file is defined
-      - quay_image_path is defined
 
 - name: Validate Blueprint Directory and Blueprint file Exists
   ansible.builtin.stat:
     path: "{{ item }}"
   become: no
-  delegate_to: localhost
   failed_when: not blueprint_exists.stat.exists
   register: blueprint_exists
   loop:
@@ -28,7 +25,6 @@
   ansible.builtin.set_fact:
     blueprint_contents: "{{ lookup('file', blueprint_source_dir + '/blueprint.toml') }}"
   become: no
-  delegate_to: localhost
 
 - name: Extract Blueprint Version
   ansible.builtin.set_fact:
@@ -48,7 +44,7 @@
 
 - name: Set Remote Tar Directory
   ansible.builtin.set_fact:
-    tar_directory: "/tmp/{{ build_commit_id }}"
+    tar_directory: "{{ tar_base }}{{ build_commit_id }}"
 
 - name: Create Remote Tar Directory
   ansible.builtin.file:
@@ -80,7 +76,6 @@
     path: "{{ tar_directory }}"
     state: directory
   become: no
-  delegate_to: localhost
 
 - name: Fetch RFE Build tar
   become: no
@@ -89,56 +84,15 @@
     flat: yes
     src: "{{ find_results.files[0].path }}"
 
-- name: Remove Remote Build Directory
-  ansible.builtin.file:
-    path: "{{ tar_directory }}"
-    state: absent
-
-- name: Copy OCI Tar to Quay
-  ansible.builtin.command:
-    argv:
-      - "skopeo"
-      - "copy"
-      - "--command-timeout=10m"
-      - "--dest-authfile=/var/secrets/publisher/.dockerconfigjson"
-      - "--dest-tls-verify=false"
-      - "oci-archive:{{ find_results.files[0].path | quote }}"
-      - "docker://{{ quay_image_path | quote }}:latest"
-  become: no
-  delegate_to: localhost
-  register: skopeo_results
-  retries: "{{ skopeo_retries }}"
-  until: skopeo_results.rc == 0
-
-- name: Add Version Tag
-  ansible.builtin.command:
-    argv:
-      - "skopeo"
-      - "copy"
-      - "--command-timeout=10m"
-      - "--src-authfile=/var/secrets/publisher/.dockerconfigjson"
-      - "--src-tls-verify=false"
-      - "--dest-authfile=/var/secrets/publisher/.dockerconfigjson"
-      - "--dest-tls-verify=false"
-      - "docker://{{ quay_image_path | quote }}:latest"
-      - "docker://{{ quay_image_path | quote }}:{{ blueprint_version | quote }}"
-  become: no
-  delegate_to: localhost
-  register: skopeo_results
-  retries: "{{ skopeo_retries }}"
-  until: skopeo_results.rc == 0
-
 - name: Set Tag List
   ansible.builtin.set_fact:
     tag_list:
       - latest
       - "{{ blueprint_version }}"
   become: no
-  delegate_to: localhost
 
 - name: Save Tag List to Output File
   ansible.builtin.copy:
     content: "{{ tag_list | to_json }}"
     dest: "{{ image_tags_output_file }}"
   become: no
-  delegate_to: localhost

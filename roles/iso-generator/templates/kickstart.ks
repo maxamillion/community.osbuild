@@ -29,9 +29,9 @@ cat > /tmp/add_to_aap.yml <<EOF
 
     - name: Update Ansible Tower inventory
       uri:
-       url: https://controller-ansible-automation-platform.apps.carolina.dev02.red-chesterfield.com/api/v2/inventories/8/hosts/
-       user: 'demo'
-       password: 'summit2022'
+       url: "{{ aap_url }}"
+       user: "{{ aap_ks_user }}"
+       password: "{{ aap_ks_password }}"
        method: POST
        body: 
          name: "{{ ansible_hostname }}"

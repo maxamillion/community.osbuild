@@ -43,7 +43,6 @@
     dest: "{{ scratch_path }}/"
     recursive: yes
     src: "{{ iso_mount_path }}/"
-  delegate_to: "{{ inventory_hostname }}"
 
 - name: Copy Kickstart File to Scratch Directory
   ansible.builtin.template:
