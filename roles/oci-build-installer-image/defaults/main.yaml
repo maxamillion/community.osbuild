@@ -1,2 +1,2 @@
 ---
-blueprint_remote_dir: /var/www/html/rfe-rpm-ostree
+blueprint_remote_dir: /var/www/html/ostree

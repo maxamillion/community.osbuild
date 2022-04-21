@@ -1,4 +1,9 @@
 ---
+- name: Create Blueprints Directory
+  file:
+    state: directory
+    path: "{{ base_rpm_ostree_dir }}"
+
 - name: Verify Blueprint Source Directory defined
   assert:
     fail_msg: Blueprints Source Directory Must be Defined

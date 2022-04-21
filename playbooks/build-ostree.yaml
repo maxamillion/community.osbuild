@@ -1,0 +1,6 @@
+- name: Build RPM ostree
+  hosts: builder
+  roles:
+    - role: build-rpm-ostree
+    
+

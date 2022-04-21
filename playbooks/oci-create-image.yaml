@@ -4,9 +4,9 @@
   gather_facts: no
   hosts: builder
   tasks:
-    - name: Configure Content Sources
-      ansible.builtin.include_role:
-        name: image-builder-content-sources
+    #- name: Configure Content Sources
+    #  ansible.builtin.include_role:
+    #    name: image-builder-content-sources
 
     - name: Build OCI Image
       ansible.builtin.include_role:
