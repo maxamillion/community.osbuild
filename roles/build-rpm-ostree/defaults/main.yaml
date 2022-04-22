@@ -1,4 +1,12 @@
 ---
 base_rpm_ostree_dir: /var/www/html/ostree
-base_rpm_ostree_blueprints_dir: "{{ base_rpm_ostree_dir }}/blueprints"
-build_commit_output_file: "{{ base_rpm_ostree_dir }}/rfe-rpm-ostree-commit"
+build_commit_output_file: "{{ base_rpm_ostree_dir }}/rpm-ostree-commit"
+blueprint_name: rfe-blueprint
+blueprint_hostname: rfe-demo
+blueprint_key: "change to your ssh public key you want in the image"
+blueprint_version: "1.0.0"
+distro: "rhel-90"
+blueprint_packages:
+  - "subscription-manager"
+  - "subscription-manager-plugin-ostree"
+  - "ansible-core"

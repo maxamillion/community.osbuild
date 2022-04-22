@@ -1,7 +1,4 @@
-- name: Generate In-Memory Inventory of OpenShift VMs
-  gather_facts: no
-  hosts: builder
-  roles:
+---
 - name: Generate RFE Boot ISO w/ Embedded kickstart
   become: yes
   hosts: builder

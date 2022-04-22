@@ -1,10 +1,10 @@
 ---
-- name: Register Host
-  community.general.redhat_subscription:
-    state: present
-    username: "{{ username }}"
-    password: "{{ password }}"
-    pool_ids: "{{ pool_ids }}"
+# - name: Register Host
+#   community.general.redhat_subscription:
+#     state: present
+#     username: "{{ username }}"
+#     password: "{{ password }}"
+#     pool_ids: "{{ pool_ids }}"
 
 - name: Setup Repositories
   community.general.rhsm_repository:

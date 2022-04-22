@@ -1,6 +1,8 @@
-- name: Build RPM ostree
+- name: Install and configure osbuilder then Build RPM ostree
+  gather_facts: false
   hosts: builder
   roles:
+    #- role: image-builder
     - role: build-rpm-ostree
     
 

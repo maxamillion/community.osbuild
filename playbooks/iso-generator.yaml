@@ -1,8 +1,4 @@
-- name: Generate In-Memory Inventory of Image Builder VM
-  hosts: builder
-  roles:
-    - role: openshift-image-builder-imi
-    
+---
 - name: Generate RFE ISO w/ Embedded kickstart
   become: yes
   hosts: builder

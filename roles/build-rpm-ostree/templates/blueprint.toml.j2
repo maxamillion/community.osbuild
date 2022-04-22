@@ -1,0 +1,23 @@
+name = "{{ blueprint_name }}"
+description = "RHEL for Edge"
+version = "{{ blueprint_version }}"
+modules = []
+groups = []
+distro = "{{ distro }}"
+
+{% for blueprint_package in blueprint_packages %}
+[[packages]]
+name = "{{blueprint_package}}"
+version = "*"
+
+{% endfor %}
+
+[customizations]
+hostname = "{{ blueprint_hostname }}"
+
+[[customizations.packages]]
+name = "demo"
+key = "{{ blueprint_key }}"
+
+[[customizations.packages]]
+groups = ["users", "wheel"]
