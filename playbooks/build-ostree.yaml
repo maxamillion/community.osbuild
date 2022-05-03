@@ -4,5 +4,3 @@
   roles:
     #- role: image-builder
     - role: build-rpm-ostree
-    
-

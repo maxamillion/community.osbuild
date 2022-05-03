@@ -2,7 +2,7 @@
 - name: Copy blueprint template packages are listed in defaults or add with -e blueprint_packages=<packagename>
   ansible.builtin.template:
     src: templates/blueprint.toml.j2
-    dest: "/tmp/blueprint.toml" 
+    dest: "/tmp/blueprint.toml"
 
 - name: Push Blueprint to Server
   command: >
@@ -25,7 +25,7 @@
   block:
     - name: Compose Image
       command: >
-        composer-cli -j compose start {{ blueprint_name}} rhel-edge-commit
+        composer-cli -j compose start {{ blueprint_name }} {{ blueprint_type }}
       register: composed_image
 
     # - name: Set Build Number
@@ -41,7 +41,6 @@
       # failed_when: not (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).finished and (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).status != "FINISHED"
       # until: (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).finished and (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).status == "FINISHED"
       register: image_build_status
-
 # - name: Save commit id to file
 #   local_action: copy content="{{ build_id }}" dest="{{ build_commit_output_file }}"
 #   become: no
