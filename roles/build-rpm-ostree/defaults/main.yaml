@@ -5,6 +5,7 @@ blueprint_name: rfe-blueprint
 blueprint_hostname: rfe-demo
 blueprint_key: "change to your ssh public key you want in the image"
 blueprint_version: "1.0.0"
+blueprint_type: "rhel-edge-commit"
 distro: "rhel-90"
 blueprint_packages:
   - "subscription-manager"
