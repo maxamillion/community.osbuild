@@ -1,26 +1,4 @@
 ---
-- name: Assert Extra Variables are Defined
-  ansible.builtin.assert:
-    fail_msg: >
-      Make sure the following extra variables are defined before running this role:
-        - blueprint_source_dir
-        - build_commit_id
-        - image_tags_output_file
-    that:
-      - blueprint_source_dir is defined
-      - build_commit_id is defined
-      - image_tags_output_file is defined
-
-- name: Validate Blueprint Directory and Blueprint file Exists
-  ansible.builtin.stat:
-    path: "{{ item }}"
-  become: no
-  failed_when: not blueprint_exists.stat.exists
-  register: blueprint_exists
-  loop:
-    - "{{ blueprint_source_dir }}"
-    - "{{ blueprint_source_dir }}/blueprint.toml"
-
 - name: Load Contents of Blueprint
   ansible.builtin.set_fact:
     blueprint_contents: "{{ lookup('file', blueprint_source_dir + '/blueprint.toml') }}"

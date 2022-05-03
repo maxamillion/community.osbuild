@@ -2,5 +2,5 @@
   gather_facts: false
   hosts: builder
   roles:
-    #- role: image-builder
+    - role: push-blueprint
     - role: build-rpm-ostree

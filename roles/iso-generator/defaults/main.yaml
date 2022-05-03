@@ -1,8 +1,8 @@
 ---
 iso_source_name: rhel-8.5-x86_64-boot.iso
 iso_source_path: /tmp
-
 iso_mount_base_path: /tmp/boot-iso
+blueprint_name: rfe-blueprint
 
 # Default name. Can override by passing
 # -e "edge_iso_name=<name>" to ansible-playbook command.
@@ -12,7 +12,7 @@ scratch_base_path: /tmp/boot-iso-scratch
 
 # Default kickstart. Can override by passing
 # -e "kickstart_url=<url>" to ansible-playbook command.
-kickstart_server: "{{ ansible_host }
+kickstart_server: "{{ ansible_host }"
 kickstart_url: "http://{{ansible_host}}:8080/kickstarts/kickstart.ks"
 
 # Override with -e iso_storage_url=$(results.iso-storage-url.path)

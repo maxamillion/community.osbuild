@@ -2,3 +2,4 @@
 image_tags_output_file: /var/www/html/tar/outputsfile.txt
 skopeo_retries: 40
 tar_base: /var/www/html/tar/
+blueprint_source_dir: /tmp

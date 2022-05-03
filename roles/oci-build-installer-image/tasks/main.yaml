@@ -1,40 +1,8 @@
 ---
-- name: Assert Extra Variables are Defined
-  ansible.builtin.assert:
-    fail_msg: >
-      Make sure the following extra variables are defined before running this role:
-      - blueprint_source_dir
-      - build_commit_id_output_file
-      - ostree_repo_url
-    that:
-      - blueprint_source_dir is defined
-      - build_commit_id_output_file is defined
-      - ostree_repo_url is defined
-
-- name: Validate Blueprint Directory and Blueprint File Exists
-  ansible.builtin.stat:
-    path: "{{ item }}"
-  become: no
-  failed_when: not blueprint_exists.stat.exists
-  loop:
-    - "{{ blueprint_source_dir }}"
-    - "{{ blueprint_source_dir }}/blueprint.toml"
-  register: blueprint_exists
-
-- name: Create Blueprints Directory
-  ansible.builtin.file:
-    path: "{{ blueprint_remote_dir }}"
-    state: directory
-
-- name: Set Blueprint Facts
-  ansible.builtin.set_fact:
-    blueprint_name: "{{ blueprint_source_dir | basename }}"
-    build_blueprint_dir: "{{ blueprint_remote_dir }}/{{ blueprint_source_dir | basename }}"
-
-- name: Copy Blueprints Directory to Image Builder
-  ansible.builtin.copy:
-    dest: "{{ build_blueprint_dir }}/"
-    src: "{{ blueprint_source_dir }}/"
+- name: Copy blueprint template packages are listed in defaults or add with -e blueprint_packages=<packagename>
+  ansible.builtin.template:
+    src: templates/blueprint.toml.j2
+    dest: "/tmp/blueprint.toml" 
 
 - name: Push Blueprint to Server
   ansible.builtin.command: >

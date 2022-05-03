@@ -3,9 +3,9 @@
   become: yes
   hosts: builder
   tasks:
-    - name: Configure Content Sources
-      ansible.builtin.include_role:
-        name: image-builder-content-sources
+    # - name: Configure Content Sources
+    #   ansible.builtin.include_role:
+    #     name: image-builder-content-sources
 
     - name: Build Installer Image
       ansible.builtin.include_role:
