@@ -1,0 +1,5 @@
+- name: Install and configure osbuilder on builder server 
+  gather_facts: false
+  hosts: builder
+  roles:
+    - role: image-builder-server-config

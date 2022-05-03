@@ -1,6 +1,7 @@
-- name: Install and configure osbuilder then Build RPM ostree
+- name: Build RPM ostree
   gather_facts: false
   hosts: builder
   roles:
     - role: push-blueprint
     - role: build-rpm-ostree
+    #- role: redhat-image-downloader
