@@ -1,9 +1,4 @@
----
-- name: Ensure osbuild repo directory exists
-  ansible.builtin.file:
-    path: /etc/osbuild-composer/repositories/
-    state: directory
-    
+--- 
 - name: Image Builder
   block:
     - name: Compose Image

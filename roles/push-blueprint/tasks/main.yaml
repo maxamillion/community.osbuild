@@ -1,4 +1,9 @@
 ---
+- name: Ensure osbuild repo directory exists
+  ansible.builtin.file:
+    path: /etc/osbuild-composer/repositories/
+    state: directory
+   
 - name: Copy blueprint template packages are listed in defaults or add with -e blueprint_packages=<packagename>
   ansible.builtin.template:
     src: templates/blueprint.toml.j2
