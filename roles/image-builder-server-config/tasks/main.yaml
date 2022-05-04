@@ -26,6 +26,7 @@
       - genisoimage
       - httpd
       - syslinux
+      - cockpit
 
 - name: Enable Cockpit/Composer/Firewalld/Apache
   ansible.builtin.systemd:

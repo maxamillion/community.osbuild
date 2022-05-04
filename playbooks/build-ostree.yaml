@@ -4,4 +4,3 @@
   roles:
     - role: push-blueprint
     - role: build-rpm-ostree
-    #- role: redhat-image-downloader

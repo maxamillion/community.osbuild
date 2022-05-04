@@ -20,27 +20,3 @@
 # - name: Set Blueprint Version Number
 #   set_fact:
 #     blueprint_version: "{{ (frozen_blueprint.stdout | from_json).blueprints[0].blueprint.version }}"
-
-- name: Image Builder
-  block:
-    - name: Compose Image
-      command: >
-        composer-cli -j compose start {{ blueprint_name }} {{ blueprint_type }}
-      register: composed_image
-
-    # - name: Set Build Number
-    #   set_fact:
-    #     build_id: "{{ (composed_image.stdout | from_json).build_id }}"
-
-    - name: Wait for Image Build to Complete
-      command: >
-        composer-cli -j compose status
-      delay: 30
-      retries: 200
-      changed_when: false
-      # failed_when: not (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).finished and (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).status != "FINISHED"
-      # until: (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).finished and (image_build_status.stdout | from_json | selectattr('id', 'equalto', build_id) | list | first).status == "FINISHED"
-      register: image_build_status
-# - name: Save commit id to file
-#   local_action: copy content="{{ build_id }}" dest="{{ build_commit_output_file }}"
-#   become: no

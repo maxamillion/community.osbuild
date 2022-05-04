@@ -4,9 +4,9 @@ build_commit_output_file: "{{ base_rpm_ostree_dir }}/rpm-ostree-commit"
 blueprint_name: rfe-blueprint
 blueprint_hostname: rfe-demo
 blueprint_key: "change to your ssh public key you want in the image"
-blueprint_version: "1.0.0"
+blueprint_version: "2.0.0"
 blueprint_type: "rhel-edge-commit"
-distro: "rhel-90"
+distro: "rhel-85"
 blueprint_packages:
   - "subscription-manager"
   - "subscription-manager-plugin-ostree"
