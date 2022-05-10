@@ -6,13 +6,13 @@
 #     password: "{{ password }}"
 #     pool_ids: "{{ pool_ids }}"
 
-# - name: Setup Repositories
-#   community.general.rhsm_repository:
-#     state: enabled
-#     purge: yes
-#     name:
-#       - rhel-8-for-x86_64-appstream-rpms
-#       - rhel-8-for-x86_64-baseos-rpms
+- name: Setup Repositories
+  community.general.rhsm_repository:
+    state: enabled
+    purge: yes
+    name:
+      - rhel-8-for-x86_64-appstream-rpms
+      - rhel-8-for-x86_64-baseos-rpms
 
 - name: Install Packages
   ansible.builtin.dnf:
@@ -49,7 +49,3 @@
     - cockpit
     - http
 
-- name: Ensure osbuild repo directory exists
-  ansible.builtin.file:
-    path: /etc/osbuild-composer/repositories/
-    state: directory
