@@ -27,7 +27,6 @@
       - httpd
       - syslinux
       - cockpit
-      - python3-jmespath
 
 - name: Enable Cockpit/Composer/Firewalld/Apache
   ansible.builtin.systemd:
