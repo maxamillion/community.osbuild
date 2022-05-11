@@ -1,2 +1,14 @@
----
 sources_tmp_directory: /tmp
+
+rhsm_repositories: |
+  {
+    "repositories": [
+      "rhel-8-for-x86_64-baseos-rpms",
+      "rhel-8-for-x86_64-appstream-rpms"
+    ]
+  }
+additional_content_sources: |
+  {
+    "sources": {
+    }
+  }
