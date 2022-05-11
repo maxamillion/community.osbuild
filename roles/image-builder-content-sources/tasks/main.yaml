@@ -1,4 +1,3 @@
----
 - name: Assert Variables are Defined
   ansible.builtin.assert:
     that:
