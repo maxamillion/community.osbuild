@@ -1,5 +1,6 @@
 - name: Build RPM ostree
   gather_facts: false
+  hosts: all
   roles:
     - role: image-builder-content-sources
     - role: push-blueprint
