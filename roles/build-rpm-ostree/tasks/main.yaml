@@ -6,9 +6,9 @@
         composer-cli -j compose start {{ blueprint_name }} {{ blueprint_type }}
       register: composed_image
 
-    # - name: Set Build Number
-    #   set_fact:
-    #     build_id: "{{ (composed_image.stdout | from_json).build_id }}"
+    - name: Set Build Number
+      set_fact: build_id="{{ composed_image.stdout | from_json| json_query('body.build_id') }}"
+
 
     - name: Wait for Image Build to Complete
       command: >
