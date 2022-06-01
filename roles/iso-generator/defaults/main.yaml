@@ -1,0 +1,27 @@
+---
+iso_source_name: rhel-8.5-x86_64-boot.iso
+iso_source_path: /tmp
+iso_mount_base_path: /tmp/boot-iso
+blueprint_name: rfe-blueprint
+
+# Default name. Can override by passing
+# -e "edge_iso_name=<name>" to ansible-playbook command.
+edge_iso_name: rfe-8.5-x86_64-auto-kickstart.iso
+edge_iso_path: /var/www/html/iso
+scratch_base_path: /tmp/boot-iso-scratch
+
+# Default kickstart. Can override by passing
+# -e "kickstart_url=<url>" to ansible-playbook command.
+kickstart_server: "{{ ansible_host }"
+kickstart_url: "http://{{ansible_host}}:8080/kickstarts/kickstart.ks"
+
+# Override with -e iso_storage_url=$(results.iso-storage-url.path)
+iso_storage_url: /tmp/iso-storage-url
+
+ostreesetup_remote: "http://{{ ansible_host }}:8080/ostree"
+kickstart_password: pleasedontusedefaultpasswords
+
+# Ansible Automation Platform URL and user to allow kickstart to register to AAP make sure to change the inventory numbe to the correct inventory ie 8 below
+aap_url: https://changeme/api/v2/inventories/8/hosts/ 
+aap_ks_user: demo
+aap_ks_password: pleasedontusedefaultpasswords

@@ -1,0 +1,5 @@
+- name: Add subscribtion manager repos
+  gather_facts: false
+  hosts: builder
+  roles:
+    - role: image-builder-content-sources

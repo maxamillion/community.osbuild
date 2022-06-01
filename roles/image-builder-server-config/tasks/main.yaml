@@ -1,0 +1,51 @@
+---
+- name: Register Host
+  community.general.redhat_subscription:
+    state: present
+    username: "{{ username }}"
+    password: "{{ password }}"
+#    pool_ids: "{{ pool_ids }}"
+
+- name: Setup Repositories
+  community.general.rhsm_repository:
+    state: enabled
+    purge: yes
+    name:
+      - rhel-8-for-x86_64-appstream-rpms
+      - rhel-8-for-x86_64-baseos-rpms
+
+- name: Install Packages
+  ansible.builtin.dnf:
+    state: latest
+    name:
+      - osbuild-composer
+      - composer-cli
+      - cockpit-composer
+      - bash-completion
+      - firewalld
+      - genisoimage
+      - httpd
+      - syslinux
+      - cockpit
+
+- name: Enable Cockpit/Composer/Firewalld/Apache
+  ansible.builtin.systemd:
+    state: started
+    enabled: yes
+    name: "{{ item }}"
+  loop:
+    - osbuild-composer.socket
+    - cockpit.socket
+    - httpd.service
+    - firewalld
+
+- name: Enable Firewall Ports for Cockpit/Composer/Apache
+  ansible.posix.firewalld:
+    permanent: yes
+    immediate: yes
+    service: "{{ item }}"
+    state: enabled
+  loop:
+    - cockpit
+    - http
+
