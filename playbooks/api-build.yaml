@@ -1,0 +1,5 @@
+- name: Build RPM ostree
+  gather_facts: false
+  hosts: builder
+  roles:
+    - role: api-builder

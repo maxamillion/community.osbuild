@@ -1,6 +1,25 @@
 ---
 # tasks file for api-builder
-- name: Query completed composes
+- name: Query compose types
   ansible.builtin.uri:
     unix_socket: /run/weldr/api.socket
-    url: http://localhost/api/v1/compose/finished
+    url: http://localhost/api/v1/compose/types
+  register: compose_types
+
+- name: Query blueprints 
+  ansible.builtin.uri:
+    unix_socket: /run/weldr/api.socket
+    url: http://localhost/api/v1/blueprints/list
+  register: blueprint_names
+
+- name: Query compose queue 
+  ansible.builtin.uri:
+    unix_socket: /run/weldr/api.socket
+    url: http://localhost/api/v1/compose/queue
+  register: compose_queue
+
+- name: register distros to fact  
+  ansible.builtin.uri:
+    unix_socket: /run/weldr/api.socket
+    url: http://localhost/api/v1/distros/list
+  register: compose_distros
